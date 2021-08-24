@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Entradas Existentes:: IBM , MSFT</h1>
+    <h1 id="entrada"></h1>
+    <input id="name">
+    <select id="option1" ><option value="intraday">intraday</option></select>
+    <button id="btn-search">Buscar</button>
+    <br><div id="content"></div>
+    <script>
+        $("#btn-search").click(function(){
+            $("#content").html("");
+            var name = $("#name").val();
+            $("#entrada").text(name);
+            console.log($("#option1").val());
+            if($("#option1").val()==="intraday"){
+               $.get("/intraday/"+name).then((res)=>{
+               console.log(res);
+               Object.keys(res["Time Series (5min)"]).forEach(function(key){
+                    $("#content").append(key);
+                    $("#content").append($("<br>"));
+                    var table = $("<table><tr><td>open</td><td>high</td><td>low</td><td>close</td><td>volume</td></tr></table>");
+                    table.append($("<tr><td>"+res["Time Series (5min)"][key]["1. open"]+"</td><td>"+res["Time Series (5min)"][key]["2. high"]+"</td><td>"+res["Time Series (5min)"][key]["3. low"]+"</td><td>"+res["Time Series (5min)"][key]["4. close"]+"</td><td>"+res["Time Series (5min)"][key]["5. volume"]+"</td></tr>"))
+                    $("#content").append(table);
+                    $("#content").append($("<br><br><br>"));
+                    });
+               },function(e){
+               alert("Hubo un error");
+               })
+            }
+
+        })
+
+
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
