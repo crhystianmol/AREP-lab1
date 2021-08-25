@@ -31,7 +31,7 @@ todos los gets implementados, lo único diferente es que le hace un llamado a la
 
 por ultimo y no menos importante mostrar los datos en el index, pero es solo cuestion de ajustar las tablas con las entradas dadas por el archivo .json
 
-**Interface de la aplicacion**
+##Interface de la aplicacion
 
 ![](img/imagen3.png)
 
