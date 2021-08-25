@@ -9,6 +9,7 @@ construir una aplicación para consultar el mercado de valores de las acciones n
 es deber del desarrollador facilitarle al usuario la consulta de histórico de la valoración (intra-día, diaria, semanal y mensual)   
 
 **Estructura del programa**
+
 ![](img/imagen1.png)
 
 ![](img/imagen2.png)
@@ -21,6 +22,7 @@ Java, aparte necesitamos el link del api el cual queremos hacer la búsqueda de 
 mostrar.
 
 **como se puede extender el programa?**
+
 solo se agregaría una nueva clase heredada de HttpConnection la cual haría la misma función de HttpService esta función es modificar
 el link de tal manera que el api nos otorgue la información que estamos solicitando.
 
