@@ -12,6 +12,7 @@ es deber del desarrollador facilitarle al usuario la consulta de histórico de l
 ![](img/imagen1.png)
 
 ![](img/imagen2.png)
+
 el programa está conformado por la clase principal que es App el la encargada de entregarnos los datos en un formato .json, esta 
 estructura nos ayudara mucho a la hora mostrar los datos al usuario.
 Pero app necesita hacer la conexión con el browser donde entra al juego la clase “HttpConnection“ ahí es donde actúa nuestro cliente 
@@ -19,7 +20,7 @@ Java, aparte necesitamos el link del api el cual queremos hacer la búsqueda de 
 “HttpService”, dicha clase hace las modificaciones pertinentes para que el api sea valido y nos otorgue la información que necesitamos 
 mostrar.
 
-- como se puede extender el programa? 
+**como se puede extender el programa?**
 solo se agregaría una nueva clase heredada de HttpConnection la cual haría la misma función de HttpService esta función es modificar
 el link de tal manera que el api nos otorgue la información que estamos solicitando.
 
