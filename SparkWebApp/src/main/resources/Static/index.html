@@ -9,27 +9,67 @@
     <h1>Entradas Existentes:: IBM , MSFT</h1>
     <h1 id="entrada"></h1>
     <input id="name">
-    <select id="option1" ><option value="intraday">intraday</option></select>
+    <select id="option1" >
+        <option value="intraday">intraday</option>
+        <option value="daily">daily</option>
+        <option value="weekly">weekly</option>
+        <option value="monthly">monthly</option>
+    </select>
     <button id="btn-search">Buscar</button>
     <br><div id="content"></div>
     <script>
+
         $("#btn-search").click(function(){
             $("#content").html("");
             var name = $("#name").val();
             $("#entrada").text(name);
             console.log($("#option1").val());
+            var table = $("<table ><tr><td>time</td><td>open</td><td>high</td><td>low</td><td>close</td><td>volume</td></tr></table>");
             if($("#option1").val()==="intraday"){
                $.get("/intraday/"+name).then((res)=>{
                console.log(res);
                Object.keys(res["Time Series (5min)"]).forEach(function(key){
-                    $("#content").append(key);
-                    $("#content").append($("<br>"));
-                    var table = $("<table><tr><td>open</td><td>high</td><td>low</td><td>close</td><td>volume</td></tr></table>");
-                    table.append($("<tr><td>"+res["Time Series (5min)"][key]["1. open"]+"</td><td>"+res["Time Series (5min)"][key]["2. high"]+"</td><td>"+res["Time Series (5min)"][key]["3. low"]+"</td><td>"+res["Time Series (5min)"][key]["4. close"]+"</td><td>"+res["Time Series (5min)"][key]["5. volume"]+"</td></tr>"))
+                    table.append($("<tr><td>"+key+"</td><td>"+res["Time Series (5min)"][key]["1. open"]+"</td><td>"+res["Time Series (5min)"][key]["2. high"]+"</td><td>"+res["Time Series (5min)"][key]["3. low"]+"</td><td>"+res["Time Series (5min)"][key]["4. close"]+"</td><td>"+res["Time Series (5min)"][key]["5. volume"]+"</td></tr>"))
                     $("#content").append(table);
-                    $("#content").append($("<br><br><br>"));
                     });
-               },function(e){
+               }
+               ,function(e){
+               alert("Hubo un error");
+               })
+            }
+            else if($("#option1").val()==="daily"){
+               $.get("/daily/"+name).then((res)=>{
+               console.log(res);
+               Object.keys(res["Time Series (Daily)"]).forEach(function(key){
+                    table.append($("<tr><td>"+key+"</td><td>"+res["Time Series (Daily)"][key]["1. open"]+"</td><td>"+res["Time Series (Daily)"][key]["2. high"]+"</td><td>"+res["Time Series (Daily)"][key]["3. low"]+"</td><td>"+res["Time Series (Daily)"][key]["4. close"]+"</td><td>"+res["Time Series (Daily)"][key]["5. volume"]+"</td></tr>"))
+                    $("#content").append(table);
+                    });
+               }
+               ,function(e){
+               alert("Hubo un error");
+               })
+            }
+            else if($("#option1").val()==="weekly"){
+               $.get("/weekly/"+name).then((res)=>{
+               console.log(res);
+               Object.keys(res["Weekly Time Series"]).forEach(function(key){
+                    table.append($("<tr><td>"+res["Weekly Time Series"][key]["1. open"]+"</td><td>"+res["Weekly Time Series"][key]["2. high"]+"</td><td>"+res["Weekly Time Series"][key]["3. low"]+"</td><td>"+res["Weekly Time Series"][key]["4. close"]+"</td><td>"+res["Weekly Time Series"][key]["5. volume"]+"</td></tr>"))
+                    $("#content").append(table);
+                    });
+               }
+               ,function(e){
+               alert("Hubo un error");
+               })
+            }
+            else if($("#option1").val()==="monthly"){
+               $.get("/monthly/"+name).then((res)=>{
+               console.log(res);
+               Object.keys(res["Monthly Time Series"]).forEach(function(key){
+                    table.append($("<tr><td>"+res["Monthly Time Series"][key]["1. open"]+"</td><td>"+res["Monthly Time Series"][key]["2. high"]+"</td><td>"+res["Monthly Time Series"][key]["3. low"]+"</td><td>"+res["Monthly Time Series"][key]["4. close"]+"</td><td>"+res["Monthly Time Series"][key]["5. volume"]+"</td></tr>"))
+                    $("#content").append(table);
+                    });
+               }
+               ,function(e){
                alert("Hubo un error");
                })
             }
